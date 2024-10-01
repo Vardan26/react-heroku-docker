@@ -1,0 +1,18 @@
+image: docker:latest
+
+services:
+  - docker:dind
+
+stages:
+  - build
+  - deploy
+
+build_app:
+  stage: build
+  script:
+    - docker build -t react-heroku-docker .
+
+deploy_app:
+  stage: deploy
+  script:
+    - docker run -d -p 3000:3000 react-heroku-docker
